@@ -1,3 +1,4 @@
+import { validDeliveryOption } from "./deliveryOptions.js";
 class Cart {
     cartItems;
     #localStorageKey;
@@ -22,7 +23,7 @@ class Cart {
     saveToStorage() {
         localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
-    addToCart(productId) {
+    addToCart(productId,quantity) {
         let matchingItem;
         this.cartItems.forEach((cartItem) => {
             if (productId === cartItem.productId) {
@@ -30,11 +31,11 @@ class Cart {
             }
         });
         if (matchingItem) {
-            matchingItem.quantity += 1;
+            matchingItem.quantity += quantity;
         } else {
             this.cartItems.push({
-                productId: productId,
-                quantity: 1,
+                productId,
+                quantity,
                 deliveryOptionId: '1'
             });
         }
@@ -57,6 +58,13 @@ class Cart {
                 matchingItem = cartItem;
             }
         });
+        if (!matchingItem) {
+            return;
+        }
+    
+        if (!validDeliveryOption(deliveryOptionId)) {
+            return;
+        }
         matchingItem.deliveryOptionId = deliveryOptionId;
         this.saveToStorage();
     }
@@ -67,18 +75,22 @@ class Cart {
         })
         return cartQuantity;
     }
+    updateProductQuantity(productId, newQuantity) {
+        let matchingItem;
+    
+        this.cartItems.forEach((cartItem) => {
+            if (cartItem.productId == productId) {
+                matchingItem = cartItem;
+            }
+        });
+        matchingItem.quantity = newQuantity;
+        this.saveToStorage();
+    }
 }
 
-export function totalCartQuantity() {
-    let cartQuantity = 0;
-    cart.cartItems.forEach((cartItem) => {
-        cartQuantity += cartItem.quantity;
-    })
-    return cartQuantity;
-}
 export const cart = new Cart('cart-oop');
-const businessCart = new Cart('cart-business');
+// const businessCart = new Cart('cart-business');
 
-console.log(cart);
-console.log(businessCart);
-console.log(businessCart instanceof Cart);
+// console.log(cart);
+// console.log(businessCart);
+// console.log(businessCart instanceof Cart);

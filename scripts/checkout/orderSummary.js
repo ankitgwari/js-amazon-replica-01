@@ -1,5 +1,6 @@
 //named export
-import { cart, updateProductQuantity, removeFromCart, totalCartQuantity, updateDeliveryOption } from '../../data/cart.js';
+import { cart } from '../../data/cart-class.js';
+// import { cart, updateProductQuantity, removeFromCart, totalCartQuantity, updateDeliveryOption } from '../../data/cart.js';
 import { products, getProduct } from '../../data/products.js';
 //default export : we need to export only 1 function. 
 import formatCurrency from '../utils/money.js';
@@ -12,7 +13,7 @@ import { renderHeader } from './header.js';
 export function renderOrderSummary() {
   let cartSummaryHTML = '';
 
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
 
     const productId = cartItem.productId;
 
@@ -75,7 +76,7 @@ export function renderOrderSummary() {
   document.querySelectorAll('.js-delete-link').forEach((link) => {
     link.addEventListener('click', () => {
       const { productId } = link.dataset;
-      removeFromCart(productId);
+      cart.removeFromCart(productId);
       renderPaymentSummary();
       // direct rendering
       renderOrderSummary();
@@ -99,7 +100,7 @@ export function renderOrderSummary() {
         const input = document.querySelector(`.js-update-input-${productId}`);
         let newQ = Number(input.value);
         if (newQ > 0 && newQ < 1000)
-          updateProductQuantity(productId, newQ);
+          cart.updateProductQuantity(productId, newQ);
         else {
           alert("Quantity must be less than 1000 and greater than 0");
         }
@@ -118,7 +119,7 @@ export function renderOrderSummary() {
   function updatingQuantityLabel(productId) {
     let matchingItem;
 
-    cart.forEach((cartItem) => {
+    cart.cartItems.forEach((cartItem) => {
       if (cartItem.productId == productId) {
         matchingItem = cartItem;
       }
@@ -159,7 +160,7 @@ export function renderOrderSummary() {
   document.querySelectorAll('.js-delivery-option').forEach((element) => {
     element.addEventListener('click', () => {
       const { productId, deliveryOptionId } = element.dataset;
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
       renderPaymentSummary();
     })

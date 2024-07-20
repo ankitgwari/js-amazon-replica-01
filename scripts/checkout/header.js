@@ -1,7 +1,7 @@
-import { totalCartQuantity } from '../../data/cart.js';
+import { cart } from '../../data/cart-class.js';
 
 export function renderHeader(){
-    const cartQuantity = totalCartQuantity();
+    const cartQuantity = cart.totalCartQuantity();
     let checkoutHeaderHTML = `<div class="header-content">
     <div class="checkout-header-left-section">
       <a href="amazon.html">
