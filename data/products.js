@@ -81,7 +81,9 @@ export function loadProductsFetch(){
         return new Appliance(productDetails);
       }
       return new Product(productDetails);
-    });
+    })
+  }).catch((error)=>{
+    console.log('Unexpected error occured');
   });
   return promise;
 }
@@ -102,11 +104,13 @@ export function loadProducts(func){
     });
     func();
   });
-
+  xhr.addEventListener('error',(error)=>{
+    console.log('Unexpected error occured');
+  });
   xhr.open('GET','https://supersimplebackend.dev/products');
   xhr.send();
-}*/
-
+}
+*/
 
 /*
 export const products = [

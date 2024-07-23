@@ -1,20 +1,26 @@
 import { loadCart } from "../data/cart-class.js";
-import {loadProductsFetch } from "../data/products.js";
+import { loadProductsFetch } from "../data/products.js";
 import { renderHeader } from "./checkout/header.js";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 
 //async await function
-async function loadPage(){
+async function loadPage() {
+    try {
+        //throw 'error1';
+        await loadProductsFetch();
 
-    await loadProductsFetch();
-
-    await new Promise((resolve)=>{
-        loadCart(()=>{
-            resolve();
-        })
-    });
-
+        await new Promise((resolve, reject) => {
+            //throw 'error2';
+            loadCart(() => {
+                // reject('error3');
+                resolve();
+            })
+        });
+    }
+    catch (error) {
+        console.log('Unexpected error occured');
+    }
     renderHeader();
     renderOrderSummary();
     renderPaymentSummary();
