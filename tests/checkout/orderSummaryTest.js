@@ -1,7 +1,7 @@
 //intergration test
 import { renderOrderSummary } from '../../scripts/checkout/orderSummary.js';
 import { cart} from '../../data/cart-class.js';
-import { loadProducts } from '../../data/products.js';
+import { loadProductsFetch } from '../../data/products.js';
 describe('test suite: renderOrderSummary', () => {
 
     const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
@@ -9,9 +9,9 @@ describe('test suite: renderOrderSummary', () => {
     //hooks
 
     beforeAll((done)=>{
-        loadProducts(()=>{
-            done();
-        });
+       loadProductsFetch().then(()=>{
+        done();
+       })
     })
 
     beforeEach(() => {
@@ -76,4 +76,4 @@ describe('test suite: renderOrderSummary', () => {
         document.querySelector('.js-test-container').innerHTML = '';
     })
 
-})
+});

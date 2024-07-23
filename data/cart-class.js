@@ -88,9 +88,22 @@ class Cart {
     }
 }
 
+
 export const cart = new Cart('cart-oop');
 // const businessCart = new Cart('cart-business');
 
 // console.log(cart);
 // console.log(businessCart);
 // console.log(businessCart instanceof Cart);
+
+export function loadCart(func){
+    const xhr = new XMLHttpRequest();
+  
+    xhr.addEventListener('load',()=>{
+      console.log(xhr.response);
+      func();
+    });
+  
+    xhr.open('GET','https://supersimplebackend.dev/cart');
+    xhr.send();
+  }
