@@ -1,5 +1,5 @@
 import { loadCart } from "../data/cart-class.js";
-import { loadProductsFetch } from "../data/products.js";
+import { loadProductsFetch, products } from "../data/products.js";
 import { renderHeader } from "./checkout/header.js";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
@@ -24,7 +24,7 @@ async function loadPage() {
     renderHeader();
     renderOrderSummary();
     renderPaymentSummary();
-
+    
 }
 loadPage();
 

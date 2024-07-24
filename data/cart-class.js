@@ -23,7 +23,7 @@ class Cart {
     saveToStorage() {
         localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
-    addToCart(productId,quantity) {
+    addToCart(productId, quantity) {
         let matchingItem;
         this.cartItems.forEach((cartItem) => {
             if (productId === cartItem.productId) {
@@ -61,7 +61,7 @@ class Cart {
         if (!matchingItem) {
             return;
         }
-    
+
         if (!validDeliveryOption(deliveryOptionId)) {
             return;
         }
@@ -77,7 +77,7 @@ class Cart {
     }
     updateProductQuantity(productId, newQuantity) {
         let matchingItem;
-    
+
         this.cartItems.forEach((cartItem) => {
             if (cartItem.productId == productId) {
                 matchingItem = cartItem;
@@ -96,14 +96,14 @@ export const cart = new Cart('cart-oop');
 // console.log(businessCart);
 // console.log(businessCart instanceof Cart);
 
-export function loadCart(func){
+export function loadCart(func) {
     const xhr = new XMLHttpRequest();
-  
-    xhr.addEventListener('load',()=>{
-      console.log(xhr.response);
-      func();
+
+    xhr.addEventListener('load', () => {
+        console.log(xhr.response);
+        func();
     });
-  
-    xhr.open('GET','https://supersimplebackend.dev/cart');
+
+    xhr.open('GET', 'https://supersimplebackend.dev/cart');
     xhr.send();
-  }
+}
