@@ -1,10 +1,13 @@
-const http=  require('http');
+const express = require("express");
+const app = express();
+const cors = require('cors');
+const PORT = 5000;
+const data = require('./products.json');
+app.use(cors());
+app.get('/products', (req, res) => {
+    res.json(data);
+})
 
-const server = http.createServer((req,res)=>{
-    console.log("server created");
-    res.end('hey');
-});
-
-server.listen(5000,"localhost",()=>{
-    console.log("server is running on 5000");
-});
+app.listen(PORT, () => {
+    console.log("server is working");
+})

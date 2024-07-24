@@ -70,7 +70,7 @@ return matchingProduct;
 export let products =[];
 
 export function loadProductsFetch(){
-  const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
+  const promise = fetch('http://localhost:5000/products').then((response)=>{
     return response.json();
   }).then((productData)=>{
     products = productData.map((productDetails)=>{
@@ -107,7 +107,7 @@ export function loadProducts(func){
   xhr.addEventListener('error',(error)=>{
     console.log('Unexpected error occured');
   });
-  xhr.open('GET','https://supersimplebackend.dev/products');
+  xhr.open('GET','http://localhost:5000/products');
   xhr.send();
 }
 

@@ -62,6 +62,7 @@ new Promise((resolve)=>{
     renderPaymentSummary();
 })
 */
+//using callback
 /*
 loadProducts(() => {
     renderHeader();
